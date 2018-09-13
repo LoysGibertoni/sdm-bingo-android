@@ -19,8 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> mPossibilities;
     private ArrayList<Integer> mDrawnNumbers;
 
-    private GridLayout mDrawnNumbersGridLayout;
+    private TextView mLastDrawnNumber;
     private Button mDrawButton;
+    private GridLayout mDrawnNumbersGridLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        mDrawnNumbersGridLayout = findViewById(R.id.glDrawnNumbers);
+        mLastDrawnNumber = findViewById(R.id.tvLastDrawnNumber);
         mDrawButton = findViewById(R.id.btDraw);
+        mDrawnNumbersGridLayout = findViewById(R.id.glDrawnNumbers);
 
-        mDrawnNumbersGridLayout.setColumnCount(getResources().getDisplayMetrics().widthPixels / getResources().getDimensionPixelSize(R.dimen.number_width));
         mDrawButton.setOnClickListener(v -> this.drawNumber());
+        mDrawnNumbersGridLayout.setColumnCount(getResources().getDisplayMetrics().widthPixels / getResources().getDimensionPixelSize(R.dimen.number_width));
 
     }
 
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         layoutParams.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
         textView.setLayoutParams(layoutParams);
         mDrawnNumbersGridLayout.addView(textView);
+        mLastDrawnNumber.setText(getString(R.string.last_drawn_number, number));
     }
 
     @Override
